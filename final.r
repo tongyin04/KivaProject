@@ -1,6 +1,5 @@
 ls()
 rm(list=ls())
-# setwd("/Volumes/Transcend/class/SI696")
 library(readr)
 library(pROC)
 library (ROCR)
@@ -23,7 +22,8 @@ loans$video_present <- as.logical(loans$video_present)
 #(1 --> unfunded, 0--> funded)
 loans$lgAmount=log(loans$loan_amount)
 loans$funded_or_not <-rep(1,dim(loans)[1])
-loans$funded_or_not[loans$status == 'defaulted' | loans$status == 'funded'| loans$status == 'in_repayment'| loans$status == 'paid'| loans$status == 'issue'| loans$status == 'refunded'] =0
+loans$funded_or_not[loans$status == 'defaulted' | loans$status == 'funded'| loans$status == 'in_repayment'| loans$status == 'paid'] = 0
+loans$funded_or_not[loans$status == 'expired' | loans$status == 'inactive_expired'] = 1
 loans$funded_or_not <-factor(loans$funded_or_not)
 
 head(loans)
